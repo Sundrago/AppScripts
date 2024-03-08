@@ -1,4 +1,4 @@
-function sheetToJson() {
+function SheetToJson() {
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("기본 대사");
     var data = sheet.getDataRange().getValues();
     var jsonData = {};
@@ -72,7 +72,7 @@ function WeatherSheetToJson() {
 }
 
 
-function iterateSheet() {
+function IterateSheet() {
     var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
     var sheet = spreadsheet.getSheetByName("기본 대사");
     if (!sheet) {
