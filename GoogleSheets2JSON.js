@@ -15,23 +15,23 @@ function ConvertDataIntoJson() {
     var key = keyRow[0];
     if (key !== "" && !isNaN(key)) {
       var obj = {};
-      var arrays = {}; // To store temporary arrays
+      var arrays = {};
 
       properties.forEach(function(property, propIndex) {
         if (inclusionCriteria[propIndex] === "all") {
           var value = dataRows[rowIndex][propIndex];
           var dataType = dataTypes[propIndex];
 
-          if (property.includes('[') && property.includes(']')) { // Check if property is part of an array
-            var arrayName = property.split('[')[0]; // Get the array name
-            var arrayIndex = parseInt(property.match(/\[(\d+)\]/)[1], 10); // Get the array index
+          if (property.includes('[') && property.includes(']')) { 
+            var arrayName = property.split('[')[0]; 
+            var arrayIndex = parseInt(property.match(/\[(\d+)\]/)[1], 10); 
 
-            if (!arrays[arrayName]) arrays[arrayName] = []; // Initialize array if not already
-            if (dataType === 'int[]' && value !== "") arrays[arrayName][arrayIndex] = parseInt(value, 10); // Convert string to int for int arrays
-            else if (value !== "") arrays[arrayName][arrayIndex] = value; // Assign value to correct index in array
+            if (!arrays[arrayName]) arrays[arrayName] = []; 
+            if (dataType === 'int[]' && value !== "") arrays[arrayName][arrayIndex] = parseInt(value, 10); 
+            else if (value !== "") arrays[arrayName][arrayIndex] = value; 
 
-          } else if (value !== "") { // Normal non-array property
-            obj[property] = dataType === 'int' ? parseInt(value, 10) : value; // Convert to int if necessary
+          } else if (value !== "") { 
+            obj[property] = dataType === 'int' ? parseInt(value, 10) : value;
           }
         }
       });
@@ -46,8 +46,7 @@ function ConvertDataIntoJson() {
 
   var jsonString = JSON.stringify(dictionary, null, 2);
   Logger.log(jsonString);
-  ShowCopyDialog(jsonString); // Uncomment if needed
-  // CreateJsonFile(jsonString, sheet.getName()); // Assumes this function is defined elsewhere
+  ShowCopyDialog(jsonString); 
 }
 
 function ShowCopyDialog(jsonString, url) {
@@ -67,10 +66,8 @@ function CreateJsonFile(jsonString, fileName) {
   // Create a file in Google Drive with the JSON content
   var file = DriveApp.createFile(fileName, jsonString, MimeType.PLAIN_TEXT);
   
-  // Optionally, set the file to be viewable by anyone with the link if you want to share it
   file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
   ShowCopyDialog(jsonString, file.getUrl());
-  // Log the URL for downloading the file
   Logger.log(file.getUrl());
 }
 
