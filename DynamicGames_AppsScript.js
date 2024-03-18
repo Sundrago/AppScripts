@@ -174,7 +174,7 @@ function showCopyDialog(jsonString) {
 }
 
 /**
- * Include new menu items on google sheets.
+ * Adds a custom menu to the Google Sheets
  */
 function onOpen() {
   const ui = SpreadsheetApp.getUi();
